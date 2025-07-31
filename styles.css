@@ -6,10 +6,10 @@ body, html {
   background: #fceef5;
   color: #333;
   overflow-x: hidden;
-  padding-bottom: 120px;
+  padding-bottom: 120px; /* espacio para controles */
 }
 
-/* Layout */
+/* Layout principal */
 .contenido {
   position: relative;
   z-index: 2;
@@ -105,15 +105,14 @@ body, html {
 
 @keyframes flotar {
   0% {
-    transform: translateY(-60px) translateX(0);
+    transform: translateY(-100px) translateX(0);
     opacity: 0;
   }
-  50% {
+  20% {
     opacity: 1;
-    transform: translateY(50vh) translateX(20px);
   }
   100% {
-    transform: translateY(110vh) translateX(-20px);
+    transform: translateY(120vh) translateX(-30px);
     opacity: 0;
   }
 }
@@ -123,7 +122,7 @@ body, html {
   100% { transform: rotateZ(20deg); }
 }
 
-/* Responsive */
+/* Responsive para iPhone y móviles */
 @media (max-width: 480px) {
   .header h1 {
     font-size: 1.6rem;
