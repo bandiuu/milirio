@@ -1,20 +1,19 @@
-// Lirios flotantes (asegúrate de no incluir lirio4 si no existe)
-const lirios = ['lirio1.png', 'lirio2.png', 'lirio3.png'];
+// Lirios flotantes
+const lirios = ['lirio1.png', 'lirio2.png', 'lirio3.png']; // corregido
 const contenedorFlores = document.getElementById('flores');
 
 for (let i = 0; i < 30; i++) {
   const flor = document.createElement('img');
-  const src = lirios[Math.floor(Math.random() * lirios.length)];
-
-  flor.src = src;
+  flor.src = lirios[Math.floor(Math.random() * lirios.length)];
   flor.className = 'flor';
 
   const tamaño = Math.random() * 30 + 20; // 20px a 50px
   flor.style.width = `${tamaño}px`;
   flor.style.left = `${Math.random() * 100}%`;
-  flor.style.animationDuration = `${8 + Math.random() * 6}s`;
+  flor.style.animationDuration = `${8 + Math.random() * 5}s`;
   flor.style.animationDelay = `${Math.random() * 10}s`;
 
+  flor.onerror = () => flor.remove(); // prevenir errores visuales si falta imagen
   contenedorFlores.appendChild(flor);
 }
 
@@ -32,7 +31,7 @@ function escribir() {
 }
 escribir();
 
-// Control de música
+// Música
 const audio = document.getElementById("musica");
 const boton = document.getElementById("boton-musica");
 
@@ -46,12 +45,12 @@ boton.onclick = () => {
   }
 };
 
-// Descargar PDF
+// PDF
 document.getElementById("download-pdf").onclick = () => {
   window.location.href = "carta.pdf";
 };
 
-// Fade in scroll
+// Activar fade de mensaje con scroll
 window.addEventListener("scroll", () => {
   const sec = document.getElementById("message-section");
   const rect = sec.getBoundingClientRect();
