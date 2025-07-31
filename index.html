@@ -4,113 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Experiencia Romántica</title>
-  <style>
-    body, html {
-      margin:0; padding:0;
-      width:100%; height:100%;
-      overflow-x:hidden;
-      background: #fceef5;
-      font-family: sans-serif;
-      position: relative;
-      color: #333;
-    }
-    .header {
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .header h1 {
-      font-size: 2.5rem;
-      animation: fadeIn 2s ease-in;
-    }
-    /* corazones */
-    .heart-container { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; }
-    .heart {
-      position:absolute;
-      width: 40px;
-      height: 40px;
-      background: red;
-      transform: rotate(45deg);
-      animation: floatUp linear infinite;
-    }
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 40px; height: 40px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -20px; left: 0;
-    }
-    .heart::after {
-      left:20px; top:0;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5) rotate(45deg); opacity: 0.7; }
-      100% { transform: translateY(-100px) scale(1.2) rotate(45deg); opacity: 0; }
-    }
-    .controls {
-      position: fixed;
-      bottom: 20px;
-      left:50%; transform: translateX(-50%);
-      text-align:center;
-    }
-    .controls button {
-      font-size:1rem;
-      padding:10px 20px;
-      margin:5px;
-      border:none;
-      background:#e91e63;
-      color:white;
-      border-radius:5px;
-      cursor:pointer;
-    }
-    .message-section {
-      max-width:600px;
-      margin: 100px auto;
-      text-align:center;
-      opacity:0;
-      animation: fadeInMessages 3s forwards;
-      animation-delay: 2s;
-      padding: 0 20px;
-    }
-    .message-section p {
-      font-size:1.2rem;
-      line-height:1.5;
-      margin: 20px 0;
-    }
-    @keyframes fadeInMessages {
-      to { opacity:1; }
-    }
-    /* responsive */
-    @media (max-width: 480px) {
-      .header h1 {
-        font-size:1.8rem;
-      }
-      .message-section p {
-        font-size:1rem;
-      }
-      .controls button {
-        font-size:0.9rem;
-        padding:8px 16px;
-      }
-      .heart { width:30px; height:30px; }
-      .heart::before, .heart::after {
-        width:30px; height:30px;
-        top:-15px; left:0;
-      }
-      .heart::after { left:15px; top:0; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <div class="heart-container" id="hearts"></div>
+  <div class="flower-container" id="flores"></div>
 
   <div class="header">
     <h1>Una carta, un momento y todo mi amor solo para ti.</h1>
@@ -122,56 +19,16 @@
     <p>Y cuando te pienso, lo confirmo:<br><strong>Mi corazón te eligió a ti, Milena.</strong></p>
   </div>
 
-  <div class="controls">
-    <button id="play-music">🎵 Reproducir música</button>
-    <button id="download-pdf">🌸 Una carta, desde mi corazón</button>
-    <audio id="audio" src="musica.mp3"></audio>
+  <div class="maquina-container">
+    <p id="texto-maquina"></p>
   </div>
 
-  <script>
-    // crear muchos corazones
-    const numHearts = 40;
-    const container = document.getElementById('hearts');
-    for(let i=0; i<numHearts; i++){
-      const h = document.createElement('div');
-      h.classList.add('heart');
-      const size = Math.random() * 20 + 20;
-      h.style.width = size + 'px';
-      h.style.height = size + 'px';
-      h.style.left = Math.random() * 100 + '%';
-      h.style.animationDuration = (Math.random()*5 + 5) + 's';
-      h.style.animationDelay = (Math.random()*5) + 's';
-      container.appendChild(h);
-    }
+  <div class="controls">
+    <button id="boton-musica">🎵 Reproducir música</button>
+    <button id="download-pdf">🌸 Una carta, desde mi corazón</button>
+    <audio id="musica" src="musica.mp3" loop></audio>
+  </div>
 
-    // control de audio
-    const audio = document.getElementById('audio');
-    const btnPlay = document.getElementById('play-music');
-    btnPlay.onclick = () => {
-      if(audio.paused){
-        audio.play();
-        btnPlay.textContent = '⏸️ Pausar música';
-      } else {
-        audio.pause();
-        btnPlay.textContent = '🎵 Reproducir música';
-      }
-    };
-
-    // descarga PDF
-    const btnDownload = document.getElementById('download-pdf');
-    btnDownload.onclick = () => {
-      window.location.href = 'carta.pdf';
-    };
-
-    // opcional: activar aparición mensaje al bajar scroll
-    window.addEventListener('scroll', () => {
-      const sec = document.getElementById('message-section');
-      const rect = sec.getBoundingClientRect();
-      if(rect.top < window.innerHeight) {
-        sec.style.opacity = 1;
-      }
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
