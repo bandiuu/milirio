@@ -4,32 +4,44 @@ const imagenesLirios = [
   'lirio3.png'
 ];
 
-// Crear lirios flotantes con animaciones realistas
-function crearLirios(num = 20) {
+// Crear lirios flotantes animados
+function crearLirios(num = 30) {
   for (let i = 0; i < num; i++) {
     const lirio = document.createElement('img');
     lirio.src = imagenesLirios[Math.floor(Math.random() * imagenesLirios.length)];
     lirio.classList.add('lirio');
 
-    // Posición y tamaño aleatorios
+    // Posición aleatoria
     lirio.style.left = `${Math.random() * 100}vw`;
-    lirio.style.animationDuration = `${10 + Math.random() * 10}s`;
-    lirio.style.animationDelay = `${Math.random() * 5}s`;
-    lirio.style.width = `${30 + Math.random() * 50}px`;
-    lirio.style.zIndex = '0';
+    lirio.style.top = `${-10 - Math.random() * 20}vh`;
+
+    // Tamaño aleatorio
+    const size = 30 + Math.random() * 40;
+    lirio.style.width = `${size}px`;
+
+    // Animación aleatoria
+    const duration = 10 + Math.random() * 10;
+    const delay = Math.random() * 5;
+    lirio.style.animationDuration = `${duration}s`;
+    lirio.style.animationDelay = `${delay}s`;
+
+    // Movimiento horizontal leve para realismo
+    lirio.style.setProperty('--moveX', `${Math.random() * 40 - 20}px`);
 
     document.body.appendChild(lirio);
   }
 }
 
-// Efecto de texto tipo máquina de escribir
-function escribirTextoMaquina(selector, texto, velocidad = 70) {
+// Texto con efecto de máquina de escribir
+function escribirTextoMaquina(selector, texto, velocidad = 60) {
   let i = 0;
   const elemento = document.querySelector(selector);
+  if (!elemento) return;
 
   function escribir() {
     if (i < texto.length) {
-      elemento.textContent += texto.charAt(i);
+      const char = texto.charAt(i);
+      elemento.innerHTML += char === '\n' ? '<br>' : char;
       i++;
       setTimeout(escribir, velocidad);
     }
@@ -38,24 +50,26 @@ function escribirTextoMaquina(selector, texto, velocidad = 70) {
   escribir();
 }
 
-// Botón de música
+// Reproducción de música con botón
 const botonMusica = document.getElementById('boton-musica');
 const audio = document.getElementById('musica');
 
-botonMusica.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-    botonMusica.textContent = '⏸ Pausar música';
-  } else {
-    audio.pause();
-    botonMusica.textContent = '▶️ Reproducir música';
-  }
-});
+if (botonMusica && audio) {
+  botonMusica.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      botonMusica.textContent = '⏸ Pausar música';
+    } else {
+      audio.pause();
+      botonMusica.textContent = '▶️ Reproducir música';
+    }
+  });
+}
 
 // Iniciar todo al cargar
 window.onload = () => {
   crearLirios(30);
 
-  const mensaje = "Te regalo esta experiencia para recordarte lo especial que eres. 🌸✨\nGracias por estar en mi vida.";
+  const mensaje = "Te regalo esta experiencia para recordarte\nlo especial que eres. 🌸✨\nGracias por estar en mi vida.";
   escribirTextoMaquina('#texto-maquina', mensaje, 60);
 };
