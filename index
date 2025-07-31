@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Una carta para Milena</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #d6336c;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .download-button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 1em;
+      margin: 20px 0;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .lirio {
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      animation: float 20s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    #audioControl {
+      margin-top: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      .download-button { font-size: 0.9em; padding: 10px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lirios flotantes -->
+  <img src="lirio1.png" class="lirio" style="left: 10%; animation-delay: 0s;">
+  <img src="lirio2.png" class="lirio" style="left: 50%; animation-delay: 5s;">
+  <img src="lirio3.png" class="lirio" style="left: 80%; animation-delay: 10s;">
+
+  <h1>Una carta, un momento y todo mi amor solo para ti.</h1>
+
+  <audio id="bgMusic" src="musica.mp3"></audio>
+  <button id="audioControl" class="download-button">▶ Escuchar música</button>
+
+  <div class="fade-in" id="mensaje" style="margin-top: 40px;">
+    <p><strong>Cuando escuché tu risa, lo supe.</strong><br />
+    Cuando hablamos horas sin parar, lo sentí.<br />
+    Y cuando te pienso, lo confirmo:<br />
+    <em>Mi corazón te eligió a ti, Milena.</em></p>
+  </div>
+
+  <a href="carta.pdf" class="download-button" download>🌸 Una carta, desde mi corazón</a>
+
+  <div class="card fade-in" id="carta" style="margin-top: 30px;">
+    <p><strong>Mi Milena hermosa,</strong></p>
+    <p>
+      Desde que llegaste a mi vida, todo tiene un color diferente. A veces creo que no fui yo quien te encontró, sino que el destino, con sus formas tan extrañas, quiso que dos personas de lugares distintos coincidieran en este mundo para aprender a amarse, aún con la distancia de por medio.
+    </p>
+    <p>
+      Aún puedo escuchar tu risa esa noche en la que nos amanecimos jugando parkour. No era solo un juego… fue ahí, entre las bromas, las charlas y las risas a deshoras, que sin darme cuenta me enamoré. Me enamoré de cómo hablabas, de cómo brillabas incluso desde lejos, de lo dulce que eres, como ese chocolate que tanto te gusta.
+    </p>
+    <p>
+      Sé que a veces no es fácil, ni perfecto. Pero si de algo estoy seguro es de que yo voy a estar para ti, siempre. No importa si estamos a kilómetros o a segundos, yo quiero construir esto con vos. Lo único que pido es que me hables siempre con el corazón, que seas sincera, que confíes en mí tanto como yo confío en vos.
+    </p>
+    <p>
+      Me encantaría tomarte de la mano, mirarte a los ojos y decirte cuánto te amo, cuánto me importás, y cuánto deseo que esto que tenemos crezca cada día más.
+    </p>
+    <p>
+      Gracias por ser esa persona con la que puedo ser yo. Por dejarme entrar en tu vida. Por tus mensajes, por tus silencios, por tus detalles… por simplemente ser tú.
+    </p>
+    <p>
+      Te prometo que este amor va en serio, sin juegos, sin máscaras. Solo nosotros, aprendiendo, cayéndonos a veces, pero siempre eligiéndonos.
+    </p>
+    <p>Con amor,<br /><strong>Bandi 💗</strong></p>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const audio = document.getElementById('bgMusic');
+    const control = document.getElementById('audioControl');
+    let isPlaying = false;
+
+    control.addEventListener('click', () => {
+      if (!isPlaying) {
+        audio.play();
+        control.textContent = '⏸ Pausar música';
+        isPlaying = true;
+      } else {
+        audio.pause();
+        control.textContent = '▶ Escuchar música';
+        isPlaying = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
