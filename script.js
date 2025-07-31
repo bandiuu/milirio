@@ -1,39 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const numFlores = 15;
-  const flowerImages = [
-    "lirio1.png",
-    "lirio2.png",
-    "lirio3.png"
-  ]; // Puedes agregar más imágenes
+const imagenesLirios = [
+  'lirio1.png',
+  'lirio2.png',
+  'lirio3.png'
+];
 
-  for (let i = 0; i < numFlores; i++) {
-    const flower = document.createElement("img");
-    flower.src = flowerImages[Math.floor(Math.random() * flowerImages.length)];
-    flower.classList.add("flower");
+// Crea varios lirios flotantes
+function crearLirios(num = 20) {
+  for (let i = 0; i < num; i++) {
+    const lirio = document.createElement('img');
+    lirio.src = imagenesLirios[Math.floor(Math.random() * imagenesLirios.length)];
+    lirio.classList.add('lirio');
 
-    // Estilos aleatorios
-    const size = Math.random() * 20 + 40; // entre 40px y 60px
-    const left = Math.random() * 100;     // entre 0% y 100%
-    const duration = Math.random() * 10 + 10; // entre 10s y 20s
-    const delay = Math.random() * 10;     // hasta 10s
-
-    flower.style.width = `${size}px`;
-    flower.style.left = `${left}vw`;
-    flower.style.animationDuration = `${duration}s`;
-    flower.style.animationDelay = `${delay}s`;
-
-    document.body.appendChild(flower);
+    // Posiciones y animaciones aleatorias
+    lirio.style.left = `${Math.random() * 100}vw`;
+    lirio.style.animationDuration = `${5 + Math.random() * 10}s`;
+    lirio.style.animationDelay = `${Math.random() * 5}s`;
+    lirio.style.width = `${30 + Math.random() * 40}px`;
+    lirio.style.zIndex = '0';
+    document.body.appendChild(lirio);
   }
+}
 
-  // Mostrar carta animada al hacer scroll
-  const messageSection = document.querySelector(".message-section");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        messageSection.classList.add("visible");
-      }
-    });
-  });
-
-  observer.observe(messageSection);
-});
+// Iniciar al cargar
+window.onload = () => {
+  crearLirios(25);
+};
