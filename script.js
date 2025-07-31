@@ -1,5 +1,5 @@
 // Lirios flotantes
-const lirios = ['lirio1.png', 'lirio2.png', 'lirio3.png']; // corregido
+const lirios = ['lirio1.png', 'lirio2.png', 'lirio3.png'];
 const contenedorFlores = document.getElementById('flores');
 
 for (let i = 0; i < 30; i++) {
@@ -7,29 +7,40 @@ for (let i = 0; i < 30; i++) {
   flor.src = lirios[Math.floor(Math.random() * lirios.length)];
   flor.className = 'flor';
 
-  const tamaño = Math.random() * 30 + 20; // 20px a 50px
+  const tamaño = Math.random() * 60 + 40; // de 40px a 100px
   flor.style.width = `${tamaño}px`;
   flor.style.left = `${Math.random() * 100}%`;
   flor.style.animationDuration = `${8 + Math.random() * 5}s`;
   flor.style.animationDelay = `${Math.random() * 10}s`;
 
-  flor.onerror = () => flor.remove(); // prevenir errores visuales si falta imagen
+  flor.onerror = () => flor.remove();
   contenedorFlores.appendChild(flor);
 }
 
-// Máquina de escribir
-const texto = "Te regalo esta experiencia para recordarte\nlo especial que eres. 🌸✨\nGracias por estar en mi vida.";
+// Máquina de escribir, línea a línea
+const texto = [
+  "Te regalo esta experiencia para recordarte",
+  "lo especial que eres. 🌸✨",
+  "Gracias por estar en mi vida."
+];
 const destino = document.getElementById("texto-maquina");
-let i = 0;
+let linea = 0, caracter = 0;
 
-function escribir() {
-  if (i < texto.length) {
-    destino.textContent += texto.charAt(i);
-    i++;
-    setTimeout(escribir, 60);
+function escribirLinea() {
+  if (linea < texto.length) {
+    if (caracter < texto[linea].length) {
+      destino.innerHTML += texto[linea].charAt(caracter);
+      caracter++;
+      setTimeout(escribirLinea, 60);
+    } else {
+      destino.innerHTML += "<br/>";
+      linea++;
+      caracter = 0;
+      setTimeout(escribirLinea, 500);
+    }
   }
 }
-escribir();
+escribirLinea();
 
 // Música
 const audio = document.getElementById("musica");
